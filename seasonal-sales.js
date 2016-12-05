@@ -17,7 +17,7 @@ departmentData.send();
 
 
 var productData = new XMLHttpRequest();
-//function parses data from json file 
+//function parses data from json file
 function productRequest(e) {
     var data = JSON.parse(e.target.responseText);
     console.log(data);
@@ -25,3 +25,8 @@ function productRequest(e) {
 productData.addEventListener("load", productRequest);
 productData.open("GET", "products.json");
 productData.send();
+
+
+var productListed = document.getElementsByClassName('name');
+var departmentListed = document.getElementsByClassName('category_id');
+var priceListed = document.getElementsByClassName('price');
