@@ -1,0 +1,13 @@
+
+.discount-key-select {
+    margin: 5% 50%;
+}
+
+.product-sec {
+    border: 2px solid black;
+    margin: 3px 0;
+}
+
+.product-sec > h3 {
+    margin-left: 1.5%;
+}
