@@ -4,6 +4,7 @@
 // of the season_discount key in the categories file. As soon as you select one of the seasons,
 // all prices on the page should immediately be discounted by the corresponding percentage.
 
+// ------------------- XMLHttpRequest --------------------------
 
 var departmentData = new XMLHttpRequest();
 function departmentRequest(e) {
@@ -16,6 +17,7 @@ departmentData.send();
 
 
 var productData = new XMLHttpRequest();
+//function parses data from json file 
 function productRequest(e) {
     var data = JSON.parse(e.target.responseText);
     console.log(data);
