@@ -5,68 +5,79 @@
 // all prices on the page should immediately be discounted by the corresponding percentage.
 
 
-// --------------------- Global Variables -----------------------------
 
 var productListed = document.getElementsByClassName('name');
-console.log(productListed);
-
 var departmentListed = document.getElementsByClassName('category_id');
-console.log(departmentListed);
-
 var priceListed = document.getElementsByClassName('price');
-console.log(priceListed);
 
 var globalProd;
 var globalCat;
 
-// ------------------- XMLHttpRequest --------------------------
+function categoryRequest(e) {
 
-//department request
-var departmentData = new XMLHttpRequest();
-departmentData.addEventListener("load", departmentRequest);
-departmentData.open("GET", "categories.json");
-departmentData.send();
+    //asks for data
+    globalCat = JSON.parse(e.target.responseText);
+    var prodSect = document.getElementsByClassName("prodSect");
+    prodSect.innerHTML = globalMerger(globalProd, globalCat);
 
+}
+
+function getProducts(e) {
+    globalProd = JSON.parse(e.target.responseText);
+    //categories request
+    var categoryData = new XMLHttpRequest();
+    categoryData.addEventListener("load", categoryRequest);
+    categoryData.open("GET", "categories.json");
+    categoryData.send();
+
+}
+
+
+//product request
 var productData = new XMLHttpRequest();
-productData.addEventListener("load", productRequest);
+productData.addEventListener("load", getProducts);
 productData.open("GET", "products.json");
 productData.send();
 
 
-function departmentRequest(e) {
-    var data = JSON.parse(e.target.responseText);
-    globalCat = data;
-    console.log(data);
+function globalMerger(pro, cat) {
 
-    for (var i = 0; i < data.categories.length; i++) {
-        console.log(data.categories[i].id)
-
-        if (data.categories[i].id === 1) {
-            console.log(data.categories[i].name)
-
-        } else if (data.categories[i].id === 2) {
-            console.log(data.categories[i].name)
-
-        } else {
-            console.log(data.categories[i].name)
-        }
-    }
 }
 
 
-//function parses data from json file
-function productRequest(e) {
-    //asks for data
-    var data = JSON.parse(e.target.responseText);
-    globalProd = data;
-    //and assings corresponding value to glabal variable innerHTML
-    for (var i = 0; i < data.products.length; i++) {
-        productListed[i].innerHTML = data.products[i].name;
-    }
-    for (var i = 0; i < data.products.length; i++) {
-        priceListed[i].innerHTML = data.products[i].price;
-    }
-    for (var i = 0; i < data.products; i++) {
-        data.products
-    }
-}
+
+
+
+//
+// `<div class="product-sec">
+//     <h3>Product:</h3>
+//         <p class="name"></p>
+//     <h3 class>Department:</h3>
+//         <p class="category_id"></p>
+//     <h3>Price:</h3>
+//         <p class="price"></p>
+// </div>`
+//
+
+
+
+
+
+// for (var i = 0; i < data.products.length; i++) {
+//     productListed[i].innerHTML = data.products[i].name;
+// }
+// for (var i = 0; i < data.products.length; i++) {
+//     priceListed[i].innerHTML = data.products[i].price;
+// }
+// for (var i = 0; i < data.products.length; i++) {
+//
+//     if (data.products[i].category_id === 1) {
+//         departmentListed[i].innerHTML = globalCat.categories[i].name
+//
+//     } else if (data.products[i].id === 2) {
+//         departmentListed[i].innerHTML = globalCat.categories[i].name
+//
+//     } else {
+//         departmentListed[i].innerHTML = globalCat.categories[i].name
+//     }
+// }
