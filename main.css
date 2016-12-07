@@ -1,5 +1,5 @@
 
-.wrapper {
+#prodSect {
     text-align: center;
 }
 
@@ -11,7 +11,7 @@
 
 .product-sec {
     border: 2px solid black;
-    margin: 3px 0;
+    margin: 3px;
     display: inline-block;
     padding: 2%;
 }
@@ -22,4 +22,5 @@
 
 .product-sec > p {
     margin: 0 1.5%;
+    display: inline;
 }

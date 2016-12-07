@@ -5,32 +5,8 @@
 // all prices on the page should immediately be discounted by the corresponding percentage.
 
 
-
-var productListed = document.getElementsByClassName('name');
-var departmentListed = document.getElementsByClassName('category_id');
-var priceListed = document.getElementsByClassName('price');
-
 var globalProd;
 var globalCat;
-
-function categoryRequest(e) {
-
-    //asks for data
-    globalCat = JSON.parse(e.target.responseText);
-    var prodSect = document.getElementsByClassName("prodSect");
-    prodSect.innerHTML = globalMerger(globalProd, globalCat);
-
-}
-
-function getProducts(e) {
-    globalProd = JSON.parse(e.target.responseText);
-    //categories request
-    var categoryData = new XMLHttpRequest();
-    categoryData.addEventListener("load", categoryRequest);
-    categoryData.open("GET", "categories.json");
-    categoryData.send();
-
-}
 
 
 //product request
@@ -40,44 +16,56 @@ productData.open("GET", "products.json");
 productData.send();
 
 
-function globalMerger(pro, cat) {
+
+
+function getProducts(e) {
+    console.log("Products");
+    globalProd = JSON.parse(e.target.responseText);
+    //categories request
+    var categoryData = new XMLHttpRequest();
+    categoryData.addEventListener("load", categoryRequest);
+    categoryData.open("GET", "categories.json");
+    categoryData.send();
 
 }
 
+//category request
+function categoryRequest(e) {
+    console.log("Categories");
+    globalCat = JSON.parse(e.target.responseText);
+    // console.log(globalCat);
+    // var prodSect = document.getElementById("prodSect");
+        // console.log(globalCat.categories[0].name);
+        var display = "";
+        for (var i = 0; i < globalProd.products.length; i++) {
+          console.log(globalProd.products[i].category_id);
 
 
+          display += `<div class="product-sec">
+                          <h3>Product:</h3>
+                          <p class="name">${globalProd.products[i].name}</p>
+                          <h3 class>Department:</h3>
+                          <p id="category_id">${catAlign(globalProd.products[i].category_id, globalCat)}</p>
+                          <h3>Price:</h3>
+                          <p class="price">${globalProd.products[i].price}</p>
+                      </div>`
+        }
+        document.getElementById("prodSect").innerHTML = display;
+}
 
+function catAlign(num, cat) {
+    // console.log(cat.categories);
+    for (var i = 0; i < cat.categories.length; i++) {
+        console.log(num)
+        if (num === 1) {
+            return cat.categories[0].name
 
-//
-// `<div class="product-sec">
-//     <h3>Product:</h3>
-//         <p class="name"></p>
-//     <h3 class>Department:</h3>
-//         <p class="category_id"></p>
-//     <h3>Price:</h3>
-//         <p class="price"></p>
-// </div>`
-//
+        } else if (num === 2){
+            return cat.categories[1].name
 
+        } else {
+            return cat.categories[2].name
+        }
+    }
 
-
-
-
-// for (var i = 0; i < data.products.length; i++) {
-//     productListed[i].innerHTML = data.products[i].name;
-// }
-// for (var i = 0; i < data.products.length; i++) {
-//     priceListed[i].innerHTML = data.products[i].price;
-// }
-// for (var i = 0; i < data.products.length; i++) {
-//
-//     if (data.products[i].category_id === 1) {
-//         departmentListed[i].innerHTML = globalCat.categories[i].name
-//
-//     } else if (data.products[i].id === 2) {
-//         departmentListed[i].innerHTML = globalCat.categories[i].name
-//
-//     } else {
-//         departmentListed[i].innerHTML = globalCat.categories[i].name
-//     }
-// }
+}
