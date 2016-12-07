@@ -5,6 +5,7 @@
 // all prices on the page should immediately be discounted by the corresponding percentage.
 
 
+//established global variables for objects
 var globalProd;
 var globalCat;
 
@@ -15,13 +16,16 @@ productData.addEventListener("load", getProducts);
 productData.open("GET", "products.json");
 productData.send();
 
-
-
-
+//function for product requet called above
 function getProducts(e) {
-    console.log("Products");
+
+    //first set of data returns
+    console.log(1 + " Products");
+
+    //sets product data to global variable
     globalProd = JSON.parse(e.target.responseText);
-    //categories request
+
+    //categories request inside of function for product request to make sure they load in that order
     var categoryData = new XMLHttpRequest();
     categoryData.addEventListener("load", categoryRequest);
     categoryData.open("GET", "categories.json");
@@ -29,18 +33,19 @@ function getProducts(e) {
 
 }
 
-//category request
+//function for category request that is called above
 function categoryRequest(e) {
-    console.log("Categories");
+
+    //second set of data to return
+    console.log(2 + " Categories");
+
+    //sets category data to global varibale
     globalCat = JSON.parse(e.target.responseText);
-    // console.log(globalCat);
-    // var prodSect = document.getElementById("prodSect");
-        // console.log(globalCat.categories[0].name);
-        var display = "";
+    //empty var to store htlm chunks
+    var display = "";
+
+        //creates the divs with the iterations of each name, department, and price
         for (var i = 0; i < globalProd.products.length; i++) {
-          console.log(globalProd.products[i].category_id);
-
-
           display += `<div class="product-sec">
                           <h3>Product:</h3>
                           <p class="name">${globalProd.products[i].name}</p>
@@ -50,13 +55,16 @@ function categoryRequest(e) {
                           <p class="price">${globalProd.products[i].price}</p>
                       </div>`
         }
-        document.getElementById("prodSect").innerHTML = display;
+
+    //sets innerHTML to sections of divs created in the for loop
+    document.getElementById("prodSect").innerHTML = display;
 }
 
+//asks for product category_id NUMBER and OBJECT categories and
+//returns the name of the category with the corresponding number
 function catAlign(num, cat) {
-    // console.log(cat.categories);
     for (var i = 0; i < cat.categories.length; i++) {
-        console.log(num)
+
         if (num === 1) {
             return cat.categories[0].name
 
