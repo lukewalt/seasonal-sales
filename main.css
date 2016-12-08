@@ -1,0 +1,26 @@
+
+#prodSect {
+    text-align: center;
+}
+
+.top-select {
+    text-align: center;
+    padding: 1% 0;
+    margin: 3%;
+}
+
+.product-sec {
+    border: 2px solid black;
+    margin: 3px;
+    display: inline-block;
+    padding: 2%;
+}
+
+.product-sec > h3 {
+    margin: 1.5%;
+}
+
+.product-sec > p {
+    margin: 0 1.5%;
+    display: inline;
+}
